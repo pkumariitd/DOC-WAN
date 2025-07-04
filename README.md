@@ -17,4 +17,4 @@ If the network is unweighted, then the code can be called as follows:
 
 ./docwan ./network.txt ./node-attributes.txt 
 
-The output is written in the file called doc-wan-coms.txt, which resides in the output directory of the directory where the code lies.
+The output is written in the file called doc-wan-coms.txt, which resides in the same directory where the code lies.
