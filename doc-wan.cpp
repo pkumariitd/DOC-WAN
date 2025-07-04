@@ -562,7 +562,7 @@ while(!g.Centnode.empty())
     str_o<<max_overlap;
 
     ostringstream comfile;
-    comfile<<"./output/doc-wan-coms.txt";
+    comfile<<"./doc-wan-coms.txt";
     ofstream fout(comfile.str());
     if(!fout.is_open())
     {
