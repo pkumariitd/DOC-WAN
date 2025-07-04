@@ -414,16 +414,6 @@ pair<int, int>LargestValue(map<int, float> sampleMap)
 
     return MaxValue;
 }
-void print_communities(map<int, set<int> >& C)
-{
-    cout<<"community"<<endl;
-    map<int, set<int> >::iterator sitr;
-    for(sitr = C.begin(); sitr != C.end(); ++sitr)
-    {
-        copy((*sitr).second.begin(), (*sitr).second.end(), ostream_iterator<int>(cout, " "));
-        cout<<endl;
-    }
-}
 
 
 float Graph::get_sn_nbrs_proximity(int u, map<int, float>& prox)
