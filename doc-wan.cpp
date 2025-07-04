@@ -455,7 +455,7 @@ int main(int argc, char* argv[])
     std::chrono::time_point<std::chrono::system_clock> start_time, end_time;
     start_time = std::chrono::system_clock::now();  //time starts
     float max_overlap = 0.50, rho_0 = 0.50;
-    bool weighted = true;
+    bool weighted = false;
     Graph g;
     map<int, set<int> > coms;
     cout<<"Attributes includes node"<<endl;
