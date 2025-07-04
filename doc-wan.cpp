@@ -42,7 +42,6 @@ class Graph
         int ecount();
         int attribute_dimension;
         float get_weight(int, int);
-        void print_graph();
         float proximity(int, int);
         float get_sn_nbrs_proximity(int, map<int, float>&);
         friend float proximity(Graph&, int, int);
@@ -60,8 +59,6 @@ float overlap(Graph& g, set<int>&, set<int>&);
 void read_communities(string& comfile, map<int, set<int> >&, map<int, set<int> >&);
 void print_communities(map<int, set<int> >&);
 float overlapping_weighted_modularity(Graph&, map<int, set<int> >&, map<int, set<int> >& );
-void print_set(set<int>&);
-void print_vector(vector<float>& );
 map<int, set<int> > coms;
 map<int, set<int> > memberships;
 
@@ -141,12 +138,6 @@ void Graph::read_edgelist(string& edgefile, bool weighted, bool directed)
     cout<<"centnode size: "<<Centnode.size()<<endl;
 }
 
-void print_vector(const vector<float>& v)
-{
-    copy(v.begin(), v.end(), ostream_iterator<float>(cout, " "));
-    cout<<endl;
-}
-
 void Graph::read_nodelist(string& nodefile)
 {
     ifstream fin;
@@ -187,54 +178,12 @@ int Graph::ecount()
     return degree_sum/2;
 }
 
-void print_set(set<int>& s)
-{
-    set<int>::iterator sitr1;
-    for(sitr1 = s.begin(); sitr1 != s.end(); ++sitr1)
-            cout<<*sitr1<<" ";
-    cout<<endl;
-}
-
 float Graph::get_weight(int u, int v)
 {
     if(weight[u].find(v) != weight[u].end())
         return weight[u][v];
     else
         return 0;
-}
-
-void Graph::print_graph()
-{
-    cout<<"No. of vertices: "<<order()<<endl;
-    cout<<"No. of edges: "<<ecount()<<endl;
-    cout<<"\n"<<"vertex"<<setw(8)<<"degree"<<endl;
-    for(auto i = strength.begin(); i != strength.end(); ++i)
-        cout<<i->first<<setw(8)<<i->second<<endl;
-
-    cout<<"\n"<<"node"<<setw(10)<<"nbrs"<<setw(5)<<"weight"<<endl;
-
-    for(auto it=weight.begin(); it != weight.end(); ++it)
-    {
-        cout<<it->first<<setw(5)<<"--- "<<endl;
-        for(auto jt = it->second.begin(); jt != it->second.end(); ++jt)
-            cout<<setw(10)<<jt->first<<setw(5)<<jt->second<<endl;
-    }
-
-    cout<<"node"<<setw(7)<<"nbrs"<<endl;
-    for(auto ci=neighbours.begin();ci!=neighbours.end();++ci)
-    {
-         cout<<ci->first<<"    ";
-         print_set(neighbours[ci->first]);
-    }
-    cout<<endl<<"node attributes of the network"<<endl;
-
-    for (auto nf = node_features.begin(); nf != node_features.end(); ++nf)
-    {
-        cout << nf->first << "---";
-        for (size_t i = 0; i < nf->second.size(); ++i)
-            cout << nf->second[i] << " ";
-        cout << endl; // End the line after printing all elements of the vector
-    }
 }
 
 float Graph::proximity(int u, int v)
