@@ -110,31 +110,19 @@ void Graph::read_edgelist(string& edgefile, bool weighted, bool directed)
         V.insert(u);
         V.insert(v);
     }
-
-     set<int>::iterator si,sj,st;
-    for(st=V.begin();st!=V.end();++st)
-    {
+    for(auto st=V.begin();st!=V.end();++st)
         if(strength[*st]>0)
             {
               int i=*st;
               float s=0;
-              for(si=neighbours[i].begin();si!=neighbours[i].end();++si)
-                 {
-                   for(sj=neighbours[i].begin();sj!=neighbours[i].end();++sj)
+              for(auto si=neighbours[i].begin();si!=neighbours[i].end();++si)
+                   for(auto sj=neighbours[i].begin();sj!=neighbours[i].end();++sj)
                     {
                        if(si!=sj&&neighbours[*si].find(*sj)!=neighbours[*si].end())
                        s=s+weight[*si][*sj];
                     }
-                  }
               Centnode.insert({i,(strength[i]+(s/2))});
            }
-     }
-      cout<<endl<<"centnode"<<endl;
-   map<int,float>::iterator ih;
-   for(ih=Centnode.begin();ih!=Centnode.end();++ih){
-    cout<<ih->first<<"    "<<ih->second<<endl;
-    }
-    cout<<"centnode size: "<<Centnode.size()<<endl;
 }
 
 void Graph::read_nodelist(string& nodefile)
@@ -211,7 +199,6 @@ float Graph::proximity(int u, int v)
             for(si = common_nbrs.begin(); si != common_nbrs.end(); ++si)
                 weight_sum += 2*get_weight(i->first, *si);
             common_nbrs.insert(i->first);
-           // cout<<"curr common vertex "<<i->first<<" its strength ="<<g.strength[i->first]<<endl;
         }
     }
 
@@ -447,7 +434,6 @@ int main(int argc, char* argv[])
     bool weighted = false;
     Graph g;
     map<int, set<int> > coms;
-    cout<<"Attributes includes node"<<endl;
     string network_file, node_attributes_file;
 
      if(argc < 3 || argc > 8)
