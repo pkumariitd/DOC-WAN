@@ -57,7 +57,6 @@ void merge_communities(Graph&, map<int, set<int> >&, map<int, set<int> >&, float
 void write_seeds(set<int>&, string&);
 float overlap(Graph& g, set<int>&, set<int>&);
 void read_communities(string& comfile, map<int, set<int> >&, map<int, set<int> >&);
-void print_communities(map<int, set<int> >&);
 float overlapping_weighted_modularity(Graph&, map<int, set<int> >&, map<int, set<int> >& );
 map<int, set<int> > coms;
 map<int, set<int> > memberships;
@@ -452,9 +451,15 @@ int main(int argc, char* argv[])
     string network_file, node_attributes_file;
 
      if(argc < 3 || argc > 8)
-        cout<<"See README file."<<endl;
+     {
+	cout<<"See README file."<<endl;
+	exit(1);
+     }
     if(argv[1][0] == '-')
-        cout<<"See README file."<<endl;
+    {
+	cout<<"See README file."<<endl;
+	exit(1);
+     }
     else
     {
         network_file = string(argv[1]);
@@ -475,7 +480,10 @@ int main(int argc, char* argv[])
                 istringstream is(argv[i+1]);
                 is>>max_overlap;
                 if( max_overlap < 0 || max_overlap > 0.5)
-                    cout<<"See README file.";
+		{
+		    cout<<"See README file.";
+		    exit(1);
+		}
                 i += 2;
             }
             else
@@ -484,7 +492,10 @@ int main(int argc, char* argv[])
                     istringstream is(argv[i+1]);
                     is>>rho_0;
                     if( rho_0 < 0 || rho_0 >= 1)
-                        cout<<"See README file.";
+		    {    
+			cout<<"See README file.";
+			exit(1);
+		    }
                     i += 2;
                 }
                 else
@@ -492,7 +503,11 @@ int main(int argc, char* argv[])
 }
     g.read_edgelist(network_file,weighted, false);
     g.read_nodelist(node_attributes_file);
-    //g.print_graph();
+    cout<<"-------------------------------------------------------------------"<<endl;
+    cout<<"Detecting Overlapping Communities in Weighted Attributed Networks (DOC-WAN) "<<endl;
+    cout<<"Authors: Abhinav Kumar, Pawan Kumar and Ravins Dohare"<<endl;
+    cout<<"Email: pkumariitd@gmail.com, ravinsdohare@gmail.com"<<endl;
+    cout<<"-------------------------------------------------------------------"<<endl;
     map<int, set<int> >::iterator ci;
     set<int> uncovered = g.V;
     cout<<"initializing communities..."<<endl;
